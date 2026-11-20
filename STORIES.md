@@ -6,6 +6,14 @@ every story. The strip tags were also lifted 8 px clear of the
 headlines (scene 48→40 px in `_vignette`); headline/deck positions
 are unchanged.
 
+v2c (20 Nov 2026, typography fit pass — NO story content changed):
+strip kicker numbers corrected to 2-3-4 left-to-right (v2b rendered
+2-4-3; the numbers now also match the globe pins: 3 Jakarta,
+4 Hormuz); "ICJ:" → "ICJ —" (the colon rendered like a semicolon);
+ALSO TODAY kicker 15→14, deck 12→11 at +17 px, label 12→14 —
+the v2b row packed 34 px of glyphs into a 35 px row and the last
+deck touched the box border; v2c sizes are the FIT for the row.
+
 Contest: **news-image-20261120 — "Sum up 20 November's world news in one image"**
 ($250, free entry, deadline 22 Nov 2026 07:00 WIB). Image date: **Friday, 20 November 2026.**
 

@@ -2566,12 +2566,12 @@ STORIES = [
          head='Trump, Xi and Putin meet in Shenzhen',
          deck='First trilateral of the three leaders: a joint peace declaration, but no concrete breakthrough on Ukraine or Iran.'),
     dict(n=2, kicker='2  THE HAGUE · JUSTICE', color=(29, 78, 137),
-         head='ICJ: Myanmar guilty of Rohingya genocide',
+         head='ICJ — Myanmar guilty of Rohingya genocide',
          deck='The Hague rules 9–6: Myanmar guilty of genocide.'),
-    dict(n=3, kicker='3  STRAIT OF HORMUZ · ENERGY', color=(176, 30, 36),
+    dict(n=3, kicker='4  STRAIT OF HORMUZ · ENERGY', color=(176, 30, 36),
          head='Tanker ablaze after mine strike in Hormuz',
          deck='A tanker burns east of the strait after hitting a mine.'),
-    dict(n=4, kicker='4  JAKARTA · INDONESIA', color=(46, 110, 58),
+    dict(n=4, kicker='3  JAKARTA · INDONESIA', color=(46, 110, 58),
          head='Indonesia passes asset forfeiture law',
          deck='DPR passes the bill after 18 years. In force in 12 months.'),
 ]
@@ -2656,19 +2656,25 @@ def build():
     _vignette(cv, 30, 654, 310, _icj_scene, STORIES[1])
     _vignette(cv, 357, 654, 310, _indonesia_scene, STORIES[3])
     _vignette(cv, 684, 654, 310, _hormuz_scene, STORIES[2])
-    # ---- ALSO TODAY (y 819..951): 12 items, 3 rows x 4 columns,
-    # label cap 15 bold + one deck line cap 12 (readable at 300 px);
-    # 35 px rows so the deck never touches the next label
+    # ---- ALSO TODAY (y 819..951): 12 items, 3 rows x 4 columns.
+    # v2c typography fit: label cap 14 bold (= kicker size, ruled
+    # underneath so it still reads as the section header), kicker
+    # cap 14 bold, deck cap 11 at +17 px. The 35 px row holds
+    # 14 + 17 + ~11 of glyphs with ~4 px air to the next label and
+    # ~3 px clear of the box bottom — v2b (15 + 19 + 12) packed
+    # 34 px of glyphs into the 35 px row and the last deck touched
+    # the box border. Sizes are the FIT for the row, not enlarged:
+    # kicker 14 > deck 11 keeps the hierarchy, label 14 = kicker.
     cv.box(30, 819, 994, 951, IVORY, 2)
-    draw_text(cv, 40, 825, 'ALSO TODAY — 20 NOVEMBER 2026', 12, GOLD2, bold=True)
+    draw_text(cv, 40, 823, 'ALSO TODAY — 20 NOVEMBER 2026', 14, GOLD2, bold=True)
     cv.fill_rect(40, 841, 984, 843, GOLD2)
     for i, (kick, txt) in enumerate(ALSO):
         col = i % 4
         row = i // 4
         ax = 40 + col * 241
         ay = 847 + row * 35
-        draw_text(cv, ax, ay, kick, 15, GOLD2, bold=True)
-        draw_text(cv, ax, ay + 19, txt, 12, IVORY)
+        draw_text(cv, ax, ay, kick, 14, GOLD2, bold=True)
+        draw_text(cv, ax, ay + 17, txt, 11, IVORY)
     # ---- date check strip (text to the judge - allowed and read)
     cv.fill_rect(MX, 957, MX + CW, 991, (0, 0, 0))
     dc1 = 'DATE CHECK — The Shenzhen summit, ICJ verdict and Indonesia asset law were decided Thu 19 Nov;'
