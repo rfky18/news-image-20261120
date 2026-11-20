@@ -1668,9 +1668,14 @@ def wrap_balanced(s, cap, maxw, bold=False, serif=False):
     greedy fill, so justified lines stretch evenly. The per-line
     penalty is huge on purpose: the wrap first minimises the number
     of lines (a deck that fits in 3 lines stays in 3), and only then
-    balances the slack across them (slack**4 punishes one gappy line
-    far more than two slightly loose ones). Deterministic (ties break
-    toward the earlier break)."""
+    balances the slack across them.
+    v2d: the slack penalty applies to EVERY line including the last
+    (slack**2), and it stays far below LINE_PENALTY (max 310**2 =
+    96100 << 1e8), so the line count still dominates. The old
+    version left the last line free (cost 0), which packed line 1
+    full and left one-word orphans on line 2 ("genocide.", "mine.")
+    — the strip decks now split evenly instead. Deterministic (ties
+    break toward the earlier break)."""
     words = s.split(' ')
     n = len(words)
     wds = [text_width(w, cap, bold, serif) for w in words]
@@ -1692,10 +1697,7 @@ def wrap_balanced(s, cap, maxw, bold=False, serif=False):
             if lw > maxw + 0.001:
                 break
             slack = maxw - lw
-            if j == n:
-                c = 0.0
-            else:
-                c = slack * slack * slack * slack
+            c = slack * slack
             c += LINE_PENALTY + cost[j]
             if c < cost[i] - 1e-9:
                 cost[i] = c
@@ -2461,54 +2463,68 @@ def _icj_scene(cv, x, y, w, h):
 def _hormuz_scene(cv, x, y, w, h):
     """Strait of Hormuz at night: dark sea, a burning tanker, black
     smoke, a red warning light. Restrained warning colours. Compact
-    (v2 strip: h ~52)."""
+    (v2 strip: h ~52).
+    v2d: the tanker sits ON the water (was floating 3 px above the
+    base, hull bottom 696 vs base 699) with a wake streak under it;
+    the smoke no longer crosses the red rule (was reaching y~650,
+    above the rule); the near-invisible headland wedge is replaced
+    by a distant ship silhouette that fills the empty dark water on
+    the left; the sea fills the scene to its bottom edge."""
     base = y + h - 2
     horizon = y + int(h * 0.38)
     _sky_bands(cv, x, y, w, horizon - y, (20, 28, 48), (52, 52, 70))
-    cv.fill_rect(x, horizon, x + w, base, (24, 54, 86))
+    cv.fill_rect(x, horizon, x + w, y + h, (24, 54, 86))
     # moonlight path on the water
     for i in range(3):
         ww = w * (0.10 + i * 0.03)
         cv.fill_rect(x + w * 0.45 - ww / 2.0, horizon + 3 + i * 4,
                      x + w * 0.45 + ww / 2.0, horizon + 5 + i * 4, (120, 150, 180))
-    # distant headland, left
-    cv.poly([(x, base), (x, horizon + 6), (x + w * 0.20, horizon + 8),
-             (x + w * 0.24, base)], (10, 18, 34))
+    # distant ship on the horizon, left — fills the empty dark water
+    _ship(cv, x + w * 0.20, horizon + 8, 1.1, (70, 100, 140))
+    cv.fill_rect(x + w * 0.20 - 14, horizon + 15, x + w * 0.20 + 14,
+                 horizon + 16, (120, 150, 180))
     # tanker hull + superstructure, centre-right
     tx = x + w * 0.52
-    ty = horizon + 8
+    ty = horizon + 12
     _ship(cv, tx, ty, 2.0, (130, 86, 58))
     cv.fill_rect(tx - 11, ty - 20, tx + 11, ty - 6, (200, 190, 170))
     cv.fill_rect(tx - 11, ty - 20, tx + 11, ty - 18, (176, 30, 36))
-    # flames + smoke above the deck
+    # flames + smoke above the deck (smoke top stays 2 px clear of the rule)
     _burst(cv, tx + 24, ty - 10, 1.2)
     _burst(cv, tx - 5, ty - 13, 0.9)
-    _smoke(cv, tx + 26, ty - 26, 1.2, (70, 70, 72))
-    _soft_disc(cv, tx + 24, ty - 10, 30, (230, 120, 20), 0.38)
+    _smoke(cv, tx + 26, ty - 20, 1.2, (70, 70, 72))
+    _soft_disc(cv, tx + 24, ty - 10, 24, (230, 120, 20), 0.38)
     # red warning light on the mast
     cv.disc(tx, ty - 26, 2, (220, 40, 40))
     _soft_disc(cv, tx, ty - 26, 8, (220, 40, 40), 0.35)
+    # wake streak under the hull — the ship sits ON the water
+    cv.fill_rect(tx - 30, ty + 13, tx + 30, ty + 14, (120, 150, 180))
 
 
 def _indonesia_scene(cv, x, y, w, h):
     """Jakarta: parliament dome silhouette + gold scales of justice.
     A smaller, clearly recognisable regional element. Compact
-    (v2 strip: h ~52)."""
+    (v2 strip: h ~52).
+    v2d: the building is 30 px tall and full-width like the ICJ
+    palace (was a 20 px dark band), the flag sits ON the roofline
+    (was floating 10 px above it, touching the green rule), and the
+    scales stand ON the building face (were floating in the dark
+    sky above the roof). Nothing floats any more; all three scenes
+    share the same base and the same 30 px illustration height."""
     base = y + h - 2
     cx = x + w / 2.0
-    # parliament: dome + colonnade
-    cv.fill_rect(x + 18, base - 20, x + w - 18, base, (58, 68, 98))
-    cv.fill_rect(x + 18, base - 20, x + w - 18, base - 18, GOLD2)
+    # parliament: dome + colonnade (30 px tall, full width, like ICJ)
+    cv.fill_rect(x + 10, base - 30, x + w - 10, base, (58, 68, 98))
+    cv.fill_rect(x + 10, base - 30, x + w - 10, base - 28, GOLD2)
     for i in range(6):
         colx = x + 34 + i * ((w - 68) / 5.0)
-        cv.fill_rect(colx - 2, base - 19, colx + 2, base - 1, (150, 146, 132))
-    cv.poly([(cx - 26, base - 20), (cx, base - 34), (cx + 26, base - 20)],
+        cv.fill_rect(colx - 2, base - 29, colx + 2, base - 1, (150, 146, 132))
+    cv.poly([(cx - 30, base - 30), (cx, base - 40), (cx + 30, base - 30)],
             (150, 146, 132))
-    cv.disc(cx, base - 34, 4, GOLD2)
-    cv.vline(cx, base - 42, base - 34, GOLD2, 2)
-    # scales of justice, gold, right of the dome
+    cv.disc(cx, base - 38, 3, GOLD2)
+    # scales of justice, gold, ON the building face (grounded)
     sx = x + w * 0.80
-    sy = base - 30
+    sy = base - 13
     cv.vline(sx, sy - 10, sy + 8, GOLD2, 2)
     cv.fill_rect(sx - 11, sy - 10, sx + 11, sy - 8, GOLD2)
     cv.disc(sx, sy - 12, 2, GOLD2)
@@ -2516,8 +2532,8 @@ def _indonesia_scene(cv, x, y, w, h):
         cv.line(sx, sy - 9, sx + dx, sy - 1, GOLD2, 1)
         cv.poly([(sx + dx - 5, sy - 1), (sx + dx + 5, sy - 1),
                  (sx + dx, sy + 5)], GOLD2)
-    # small red-white flag accent on the dome
-    _flag(cv, x + w * 0.10, base - 42, 20, 12, 'id')
+    # small red-white flag sitting ON the roofline, left end
+    _flag(cv, x + w * 0.10, base - 40, 16, 10, 'id')
 
 
 def _akvan_band(cv, x, y, w, h):
@@ -2602,11 +2618,16 @@ def _vignette(cv, x, y, w, scene, st):
     y818, 1 px above the ALSO TODAY box; and shrinking the headline
     1 px is a no-op: the atlas has no cap-19 bold glyphs, it falls
     back to cap 20; tightening the leading merges the descenders
-    into line 2 — 86 collision px at leading 20 vs 9 at 22)."""
+    into line 2 — 86 collision px at leading 20 vs 9 at 22).
+    v2d: wrap_balanced now evens BOTH lines (no one-word orphans on
+    the deck), and the headline+deck block moved UP 3 px (hy y+78)
+    so the deck clears the ALSO TODAY box by 4+ px on all three
+    columns with the same baseline floor; the chip-to-headline gap
+    is now 12 px instead of 15."""
     cv.fill_rect(x, y, x + w, y + 3, st['color'])
     scene(cv, x, y + 7, w, 40)
     kicker(cv, x, y + 51, st['kicker'], 9, st['color'])
-    hy = y + 81
+    hy = y + 78
     lines = wrap_balanced(st['head'], 20, w, bold=True)
     draw_para(cv, x, hy, lines[:2], 20, IVORY, leading=22, bold=True)
     dy = hy + 22 * min(2, len(lines)) + 8
