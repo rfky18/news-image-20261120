@@ -1,4 +1,10 @@
-# news-image-20261120 — fact-check table (v2)
+# news-image-20261120 — fact-check table (v2, v2b fix)
+
+v2b (20 Nov 2026): #12 MEASLES replaced by #12 VARMA (see below) — the
+measles announcement was 17 Nov, so the DATE CHECK is now true for
+every story. The strip tags were also lifted 8 px clear of the
+headlines (scene 48→40 px in `_vignette`); headline/deck positions
+are unchanged.
 
 Contest: **news-image-20261120 — "Sum up 20 November's world news in one image"**
 ($250, free entry, deadline 22 Nov 2026 07:00 WIB). Image date: **Friday, 20 November 2026.**
@@ -41,7 +47,7 @@ three 19 Nov events happened on the 20th.
 | 9 | HOUTHI — Claims strikes on 4 Saudi targets. | Claimed 19 Nov, reported 20 Nov; targets: Riyadh financial centre, King Khalid airport, Sadaf Jubail (petrochemical), Khamis Mushait air base. Labelled as a CLAIM, not a confirmed strike. |
 | 10 | IRAN — Trump delays decision to 2027. | Reported 20 Nov (TOI + 6 outlets). |
 | 11 | EUROPE — Allies ready for Russia talks. | France/Germany/UK discuss potential meeting with Russia, reported 20 Nov. |
-| 12 | MEASLES — US loses elimination status. | PAHO announced 17 Nov 2026 (decision 13 Nov): endemic measles re-established after 12+ months of continuous transmission; 5,412 US cases in 2026. Still heavily reported 17–20 Nov (CNN, WSJ, CDC). NOTE for the coordinator: the announcement itself is 17 Nov, not 20 Nov — the DATE CHECK wording ("first reported Fri 20 Nov") is strictly true only for the other stories; this item is kept on the task's explicit list. |
+| 12 | VARMA — India judge resigns amid graft case. Justice Yashwant Varma quits; says resignation is not admission of guilt. | NDTV, 20 Nov 2026 ("Resignation Not Admission Of Guilt: Justice Yashwant Varma Tells Lok Sabha Secretariat", reported 20 Nov) + 6 outlets. Replaces MEASLES in v2b: the PAHO measles announcement was 17 Nov (decision 13 Nov), not 20 Nov, so it broke the DATE CHECK. |
 | 13 | CYBER — Bank data leaked; cyber chief out. | Ransomware group n0n published JPMorgan/Visa/Mastercard customer marketing data (third-party vendor breach, ~16,000 wealthy JPMorgan customers; no card numbers) 19 Nov; National Cyber Director Sean Cairncross departed 19 Nov, Kirsten Davies named acting head 20 Nov. WSJ / NBC / Newsmax / Indian Economic Observer, 19–20 Nov. The image label says "cyber chief out" — neutral wording, because reports describe an amicable departure, not a firing. |
 | 14 | GAZA — Ground op ends; Hezbollah hit. | Israel completes Gaza ground operation outside the Yellow Line; strikes Hezbollah missile site in eastern Lebanon; reported 20 Nov. |
 | 15 | ANDROMEDA — First direct look at star merger. | Seven-year observation captures a giant star swallowing its companion — first direct look at common-envelope evolution; reported 20 Nov. |
@@ -59,7 +65,9 @@ three 19 Nov events happened on the 20th.
 - Any casualty numbers for the tanker incident or Kyiv strikes: not confirmed
   at build time — none printed.
 - Gaza floods (6–9 Nov), Great Unconformity study (4 Nov): not 20 Nov news.
-- Measles date caveat: see #12 above — flag to the coordinator, not hidden.
+- Measles (US loses elimination status): REMOVED in v2b — the PAHO
+  announcement was 17 Nov 2026 (decision 13 Nov), not 20 Nov, so
+  keeping it broke the DATE CHECK. Replaced by #12 VARMA.
 
 ## Globe pins (verified positions, lat/lon → orthographic projection)
 

@@ -29,7 +29,7 @@ One unified image, not four panels: **THE WORLD AT A CROSSROADS — Friday, 20 N
   forfeiture law after 18 years. Right: a tanker ablaze in the Strait
   of Hormuz after a mine strike.
 - An **ALSO TODAY** grid adds twelve further verified stories (Kyiv,
-  Genoa, COP31, Houthi claim, Iran call, Europe, measles, cyber, Gaza,
+  Genoa, COP31, Houthi claim, Iran call, Europe, Varma, cyber, Gaza,
   Andromeda, Pete Rose, India–NZ Test) — 17 stories in one frame.
 - A **DATE CHECK** strip (text to the judge): the summit, the ICJ ruling
   and the Indonesia law are 19 Nov events that led the news on 20 Nov;

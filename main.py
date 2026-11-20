@@ -2582,7 +2582,7 @@ ALSO = [
     ('9  HOUTHI', 'Claims strikes on 4 Saudi targets'),
     ('10  IRAN', 'Trump delays decision to 2027'),
     ('11  EUROPE', 'Allies ready for Russia talks'),
-    ('12  MEASLES', 'US loses elimination status'),
+    ('12  VARMA', 'India judge resigns amid graft case'),
     ('13  CYBER', 'Bank data leaked; cyber chief out'),
     ('14  GAZA', 'Ground op ends; Hezbollah hit'),
     ('15  ANDROMEDA', 'First direct look at star merger'),
@@ -2592,13 +2592,20 @@ ALSO = [
 
 
 def _vignette(cv, x, y, w, scene, st):
-    """One narrative strip, ~160 px tall: 3 px coloured rule, 52 px
+    """One narrative strip, ~160 px tall: 3 px coloured rule, 40 px
     illustration, kicker chip, 2-line headline (cap 20), 2-line deck
     (cap 13). No box: the three strips share one floor under the
-    same globe; the thick rules separate them."""
+    same globe; the thick rules separate them.
+    v2b: the scene is 40 px (was 48) and the kicker sits 8 px higher,
+    so the tag chip ends 14 px clear of the headline cap top — the
+    headline itself could NOT move down (its deck already ends at
+    y818, 1 px above the ALSO TODAY box; and shrinking the headline
+    1 px is a no-op: the atlas has no cap-19 bold glyphs, it falls
+    back to cap 20; tightening the leading merges the descenders
+    into line 2 — 86 collision px at leading 20 vs 9 at 22)."""
     cv.fill_rect(x, y, x + w, y + 3, st['color'])
-    scene(cv, x, y + 7, w, 48)
-    kicker(cv, x, y + 59, st['kicker'], 9, st['color'])
+    scene(cv, x, y + 7, w, 40)
+    kicker(cv, x, y + 51, st['kicker'], 9, st['color'])
     hy = y + 81
     lines = wrap_balanced(st['head'], 20, w, bold=True)
     draw_para(cv, x, hy, lines[:2], 20, IVORY, leading=22, bold=True)
