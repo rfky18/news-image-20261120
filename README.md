@@ -11,23 +11,30 @@
 One unified image, not four panels: **THE WORLD AT A CROSSROADS — Friday, 20 November 2026.**
 
 - A 3D-shaded Earth, suspended above a dark reflective floor, anchors the
-  frame; seven numbered pins mark where the news happened (1 Shenzhen ·
-  2 The Hague · 3 Hormuz · 4 Jakarta · 5 Kyiv · 6 Genoa · 7 Odisha).
+  frame; nine numbered pins mark where the news happened (1 Shenzhen ·
+  2 The Hague · 3 Jakarta · 4 Hormuz · 5 Gopalpur · 6 Kyiv · 7 Genoa ·
+  8 Antalya · 9 Riyadh), at true lat/lon. Coastlines are real: Natural
+  Earth 110m land rasterised to a 360×180 mask and projected onto the
+  sphere — Africa, Eurasia and the Americas are recognisable.
 - Above the globe, the Shenzhen trilateral: Trump, Xi and Putin as
   miniature figures at one table under three flags — a joint peace
   declaration, but no breakthrough on Ukraine or Iran.
-- On the same floor, lower left: the ICJ palace in The Hague, tents and
-  families — the 9–6 ruling that Myanmar committed genocide against the
-  Rohingya. Lower right: a tanker ablaze in the Strait of Hormuz after a
-  mine strike. Centre: Indonesia's parliament dome and the scales of
-  justice — the DPR passes the asset forfeiture law, 74 articles, after
-  18 years.
-- An **ALSO TODAY** strip adds six further verified stories (Kyiv, Genoa,
-  Cyclone Akvan, Anthropic's record Nasdaq debut, the delayed Iran call,
-  Europe ready to talk with Russia) — 10 stories in one frame.
+- Under the globe, the pure-20-Nov hero: **CYCLONE AKVAN MAKES
+  LANDFALL** — a spiral cyclone over the reflective sea, ~300,000
+  evacuated in Odisha, landfall 10–11 AM near Gopalpur, 90–100 km/h.
+- On the same floor, left to right in story order 2-3-4: the ICJ palace
+  in The Hague, tents and families — the 9–6 ruling that Myanmar
+  committed genocide against the Rohingya. Centre: Indonesia's
+  parliament dome and the scales of justice — the DPR passes the asset
+  forfeiture law after 18 years. Right: a tanker ablaze in the Strait
+  of Hormuz after a mine strike.
+- An **ALSO TODAY** grid adds twelve further verified stories (Kyiv,
+  Genoa, COP31, Houthi claim, Iran call, Europe, measles, cyber, Gaza,
+  Andromeda, Pete Rose, India–NZ Test) — 17 stories in one frame.
 - A **DATE CHECK** strip (text to the judge): the summit, the ICJ ruling
   and the Indonesia law are 19 Nov events that led the news on 20 Nov;
-  no casualty figures invented.
+  every other story happened or was first reported on 20 Nov; no
+  casualty figures invented.
 
 ## How it renders
 
@@ -42,8 +49,9 @@ Deterministic: two runs produce byte-identical output. Run time ~2 s.
 ## Files
 
 - `main.py` — the whole generator.
-- `STORIES.md` — fact-check table for all 10 stories (sources, what was
-  deliberately left out, and why no Anthropic figures are printed).
+- `STORIES.md` — fact-check table for all 17 stories (sources, what was
+  deliberately left out, the DATE CHECK framing, and the globe pin
+  positions).
 - `LICENSE` — MIT.
 
 ## Facts
